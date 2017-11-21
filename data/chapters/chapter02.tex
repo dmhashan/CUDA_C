@@ -1,0 +1,68 @@
+\pagebreak
+\pgfplotstableread{../data/dat_gxcu.dat}\gxcudat		
+\pgfplotstableread{../data/dat_sxcu.dat}\sxcudat		
+
+\section{GPU(Global) performance agains threads per block}
+		
+		\pgfplotstabletypeset[
+		  columns/p/.style={column name=Threads per block},
+		  columns/q/.style={column name=Executing time},
+		]{\gxcudat}
+\bigbreak		
+		\begin{tikzpicture}
+		\begin{axis}[
+		title={Performence chart (Executing time agains threads per block)},
+			xlabel={Threads per block},
+			ylabel={Executing time [\si{milisecond}]},
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,]
+		\addplot[smooth, color=blue,mark=x]table {\gxcudat};
+		\end{axis}
+		\end{tikzpicture}
+
+		 
+\section{GPU(Shared) performance agains threads per block}
+		
+		\pgfplotstabletypeset[
+		  columns/p/.style={column name=Threads per block},
+		  columns/q/.style={column name=Executing time},
+		]{\sxcudat}
+\bigbreak		
+		\begin{tikzpicture}
+		\begin{axis}[
+		title={Performence chart (Executing time agains threads per block)},
+			xlabel={Threads per block},
+			ylabel={Executing time [\si{milisecond}]},
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,]
+		\addplot[smooth, color=blue,mark=x]table {\sxcudat};
+		\end{axis}
+		\end{tikzpicture}
+
+\section{GPU(Global/Shared) performance differences agains threads per block}
+		
+		\pgfplotstablecreatecol[copy column from table={\sxcudat}{[index] 1}] {r} {\gxcudat}
+
+		\pgfplotstabletypeset[
+		  columns/p/.style={column name=Threads per block},
+		  columns/q/.style={column name=GPU(Global)},
+		  columns/r/.style={column name=GPU(Shared)},
+		]{\gxcudat}
+\bigbreak		
+		\begin{tikzpicture}
+		\begin{axis}[
+		title={Performence chart (Executing time agains threads per block)},
+			xlabel={Threads per block},
+			ylabel={Executing time [\si{milisecond}]},
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,]
+		\addplot[smooth, color=blue,mark=x]table {../data/dat_gxcu.dat};
+		\addlegendentry{GPU(Global) executing time}
+		\addplot[smooth, color=green,mark=x]table {../data/dat_sxcu.dat};
+		\addlegendentry{GPU(Shared) executing time}
+		\end{axis}
+		\end{tikzpicture}
+

@@ -1,0 +1,60 @@
+	
+	
+	\documentclass[12pt]{report}
+	\usepackage[utf8]{inputenc}
+	\usepackage{graphicx}
+	\usepackage{tikz}
+	\usepackage{pgfplots}
+	\usepackage{textcomp}
+	\usepackage{siunitx}
+	\usepackage{pgfplotstable}
+	\usepackage{booktabs}
+	\usepackage{array}
+	\usepackage{colortbl}
+
+	\graphicspath{ {images/} }
+	\pgfplotsset{width=10cm}
+	
+	\pgfplotstableset{% global config, for example in the preamble
+	  every head row/.style={before row=\toprule,after row=\midrule},
+	  every last row/.style={after row=\bottomrule},
+	  fixed,precision=5,
+	}
+
+	\title{
+		{Parallel Distributed Computing}\
+		{\large CUDA Programming Assignment 01}\
+		{\includegraphics[scale=0.5]{logo.jpg}}
+	}
+	\author{D. M. H. Hirosh ( UWU/CST/14/0014 )}
+	\date{\today}
+
+
+
+	\begin{document}
+	 
+		\begin{titlepage}
+
+		\maketitle
+		\end{titlepage}
+
+	\tableofcontents{}
+
+		\chapter{Graphs and Tables to compare performance differences agains matrix size}
+		\input{chapters/chapter01}
+
+		\chapter{Graphs and Tables to compare performance differences agains threads per block}
+		\input{chapters/chapter02}
+
+		\chapter{Small descriptions about graphs}
+		\input{chapters/chapter03}
+
+		\chapter{Conclusions}
+		\input{chapters/chapter04}
+
+		\bibliographystyle{unsrt}
+		\bibliography{sample}
+		\input{chapters/chapter05}
+	 
+	\end{document}
+

@@ -1,0 +1,118 @@
+\pagebreak
+\pgfplotstableread{../data/dat_c.dat}\cdat
+\pgfplotstableread{../data/dat_gcu.dat}\gcudat		
+\pgfplotstableread{../data/dat_scu.dat}\scudat		
+
+\section{CPU performance agains matrix size}
+		
+		\pgfplotstabletypeset[
+		  columns/p/.style={column name=Matrix Size},
+		  columns/q/.style={column name=Executing time},
+		]{\cdat}
+\bigbreak
+		\begin{tikzpicture}
+		\begin{axis}[
+		title={Performence chart (Executing time agains size of matrix)},
+			xlabel={Size of the matrix},
+			ylabel={Executing time [\si{milisecond}]},
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,]
+		\addplot[smooth, color=blue,mark=x]table {\cdat};
+		\end{axis}
+		\end{tikzpicture}
+
+		 
+\section{GPU(Global) performance agains matrix size}
+		
+		\pgfplotstabletypeset[
+		  columns/p/.style={column name=Matrix Size},
+		  columns/q/.style={column name=Executing time},
+		]{\gcudat}
+\bigbreak		
+		\begin{tikzpicture}
+		\begin{axis}[
+		title={Performence chart (Executing time agains size of matrix)},
+			xlabel={Size of the matrix},
+			ylabel={Executing time [\si{milisecond}]},
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,]
+		\addplot[smooth, color=blue,mark=x]table {\gcudat};
+		\end{axis}
+		\end{tikzpicture}
+
+		 
+\section{GPU(Shared) performance agains matrix size}
+		
+		\pgfplotstabletypeset[
+		  columns/p/.style={column name=Matrix Size},
+		  columns/q/.style={column name=Executing time},
+		]{\scudat}
+\bigbreak		
+		\begin{tikzpicture}
+		\begin{axis}[
+		title={Performence chart (Executing time agains size of matrix)},
+			xlabel={Size of the matrix},
+			ylabel={Executing time [\si{milisecond}]},
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,]
+		\addplot[smooth, color=blue,mark=x]table {\scudat};
+		\end{axis}
+		\end{tikzpicture}
+
+\section{CPU and GPU(Global/Shared) performance differences agains size of matrix}
+		
+		\pgfplotstablecreatecol[copy column from table={\gcudat}{[index] 1}] {r} {\cdat}
+		\pgfplotstablecreatecol[copy column from table={\scudat}{[index] 1}] {s} {\cdat}
+
+		\pgfplotstabletypeset[
+		  columns/p/.style={column name=Matrix Size},
+		  columns/q/.style={column name=CPU},
+		  columns/r/.style={column name=GPU(Global)},
+		  columns/s/.style={column name=GPU(Shared)},
+		]{\cdat}
+\bigbreak		
+		\begin{tikzpicture}
+		\begin{axis}[
+		title={Performence chart (Executing time agains size of matrix)},
+			xlabel={Size of the matrix},
+			ylabel={Executing time [\si{milisecond}]},
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,]
+		\addplot[smooth, color=red,mark=x]table {../data/dat_c.dat};
+		\addlegendentry{CPU executing time}
+		\addplot[smooth, color=blue,mark=x]table {../data/dat_gcu.dat};
+		\addlegendentry{GPU(Global) executing time}
+		\addplot[smooth, color=green,mark=x]table {../data/dat_scu.dat};
+		\addlegendentry{GPU(Shared) executing time}
+		\end{axis}
+		\end{tikzpicture}
+
+\section{GPU(Global/Shared) performance differences agains size of matrix}
+		
+		\pgfplotstablecreatecol[copy column from table={\scudat}{[index] 1}] {r} {\gcudat}
+
+		\pgfplotstabletypeset[
+		  columns/p/.style={column name=Matrix Size},
+		  columns/q/.style={column name=GPU(Global)},
+		  columns/r/.style={column name=GPU(Shared)},
+		]{\gcudat}
+\bigbreak		
+		\begin{tikzpicture}
+		\begin{axis}[
+		title={Performence chart (Executing time agains size of matrix)},
+			xlabel={Size of the matrix},
+			ylabel={Executing time [\si{milisecond}]},
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,]
+		\addplot[smooth, color=blue,mark=x]table {../data/dat_gcu.dat};
+		\addlegendentry{GPU(Global) executing time}
+		\addplot[smooth, color=green,mark=x]table {../data/dat_scu.dat};
+		\addlegendentry{GPU(Shared) executing time}
+		\end{axis}
+		\end{tikzpicture}
+
